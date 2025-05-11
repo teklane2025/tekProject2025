@@ -1,0 +1,478 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Workflow explicitTransitions="true" name="Custom User Creation Workflow">
+  <Variable initializer="true" input="true" name="trace"/>
+  <Description>This Workflow will be used to Create,Modify,Delete Users on different Applications.</Description>
+  <Step icon="Start" name="Start" posX="28" posY="10">
+    <Transition to="Select Identity"/>
+  </Step>
+  <Step icon="Analysis" name="Select Identity" posX="98" posY="10">
+    <Approval name="Identity Details Form" owner="spadmin" return="identityName" send="identityName">
+      <Form name="Identity Details Form">
+        <Attributes>
+          <Map>
+            <entry key="pageTitle" value="Identity Details Form"/>
+          </Map>
+        </Attributes>
+        <Section label="User Information" name="userinformation">
+          <Field displayName="Identity Name" name="identityName" type="sailpoint.object.Identity"/>
+        </Section>
+        <Button action="next" label="Next"/>
+        <Button action="back" label="Back"/>
+      </Form>
+    </Approval>
+    <Transition to="Confirm Identity Details"/>
+  </Step>
+  <Step icon="Stop" name="Stop" posX="1056" posY="14"/>
+  <Step icon="Task" name="Confirm Identity Details" posX="247" posY="10">
+    <Approval name="Identity Details Confirmation" owner="spadmin" return="identityName,operation" send="identityName,operation">
+      <Form name="Identity Details Confirmation">
+        <Attributes>
+          <Map>
+            <entry key="pageTitle" value="Identity Details Confirmation"/>
+          </Map>
+        </Attributes>
+        <Section columns="2" label="User Details" name="userdetails">
+          <Field columnSpan="1" displayName="First Name" name="firstname" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import sailpoint.object.Identity;
+
+                Identity identity = context.getObject(Identity.class, identityName);
+                if(identity!=null){
+                String firstName =  identity.getFirstname();
+                return firstName;
+                }</Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Last Name" name="lastname" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import sailpoint.object.Identity;
+
+                Identity identity = context.getObject(Identity.class, identityName);
+                if(identity!=null){
+                String lastName =  identity.getLastname();
+                return lastName;
+                }</Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Email" name="email" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import sailpoint.object.Identity;
+                Identity identity = context.getObject(Identity.class, identityName);
+                String email = identity.getEmail();
+                return email;
+              </Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Manager" name="manager" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import sailpoint.object.Identity;
+                Identity identity = context.getObjectById(Identity.class, identityName);
+                Identity manager = identity.getManager();
+                if(manager!=null) {
+                String fullName = manager.getDisplayName();
+                return fullName;	
+                }
+              </Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Application Name" name="application" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import java.util.ArrayList;
+                import java.util.List;
+                import sailpoint.api.SailPointContext;
+                import sailpoint.object.Application;
+                import sailpoint.object.Attributes;
+                import sailpoint.object.EntitlementGroup;
+                import sailpoint.object.Identity;
+                import sailpoint.object.IdentityEntitlement;
+                import sailpoint.object.Link;
+                import sailpoint.object.ResourceObject;
+                import sailpoint.tools.GeneralException;
+                ArrayList array = new ArrayList();
+                Identity identity = context.getObject(Identity.class, identityName);
+
+                List links = identity.getLinks();
+                for(Link li : links) {
+                String applicationName = li.getApplicationName(); 
+
+                array.add(applicationName);
+
+                }
+                return array;</Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Location" name="location" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import sailpoint.object.Identity;
+                Identity identity = context.getObject(Identity.class, identityName);
+                String place = identity.getStringAttribute("location");
+                return place;
+              </Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Access" name="access" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import java.util.ArrayList;
+                import java.util.List;
+                import sailpoint.api.SailPointContext;
+                import sailpoint.object.Application;
+                import sailpoint.object.Attributes;
+                import sailpoint.object.EntitlementGroup;
+                import sailpoint.object.Identity;
+                import sailpoint.object.IdentityEntitlement;
+                import sailpoint.object.Link;
+                import sailpoint.object.ResourceObject;
+                import sailpoint.tools.GeneralException;
+                ArrayList array = new ArrayList();
+                Identity identity = context.getObject(Identity.class, identityName);
+                List exceptions = identity.getExceptions();
+                for(EntitlementGroup entGroup : exceptions) {
+                Attributes attributes = entGroup.getAttributes();
+
+                String dept = (String) attributes.get("department");
+                String dept1 = (String) attributes.get("Access");
+                array.add(dept);
+                array.add(dept1);
+                }
+                return array;</Source>
+            </Script>
+          </Field>
+          <Field columnSpan="1" displayName="Employee Type" name="employeeType" type="string">
+            <Attributes>
+              <Map>
+                <entry key="readOnly" value="true"/>
+              </Map>
+            </Attributes>
+            <Script>
+              <Source>import sailpoint.object.Identity;
+                Identity identity = context.getObject(Identity.class, identityName);
+                String job = identity.getStringAttribute("employeeType");
+                return job;</Source>
+            </Script>
+          </Field>
+          <Field columnSpan="2" displayName="Operation" name="operation" type="string">
+            <AllowedValuesDefinition>
+              <Value>
+                <List>
+                  <String>Create</String>
+                  <String>Modify</String>
+                  <String>Delete</String>
+                </List>
+              </Value>
+            </AllowedValuesDefinition>
+          </Field>
+        </Section>
+        <Button action="next" label="Submit"/>
+        <Button action="back" label="Back"/>
+      </Form>
+    </Approval>
+    <Transition to="Create Identity Provision">
+      <Script>
+        <Source>if(operation.equals("Create")){
+return true;
+}</Source>
+      </Script>
+    </Transition>
+    <Transition to="Modify Identity Provision">
+      <Script>
+        <Source>if(operation.equals("Modify")){
+return true;
+}</Source>
+      </Script>
+    </Transition>
+    <Transition to="Delete Identity Provision"/>
+  </Step>
+  <Step icon="Provision" name="Create Identity Provision" posX="470" posY="10" resultVariable="plan">
+    <Script>
+      <Source>import sailpoint.api.SailPointContext;
+        import sailpoint.object.ProvisioningPlan;
+        import sailpoint.object.ProvisioningPlan.AccountRequest;
+        import sailpoint.object.ProvisioningPlan.AttributeRequest;
+        import sailpoint.object.ProvisioningResult;
+        import sailpoint.object.Identity;
+        import sailpoint.tools.GeneralException;
+
+        Identity identityObj = context.getObject(Identity.class, identityName);
+        String identityName = identityObj.getName();
+        String dn =( "uid="+identityName+",ou=users,ou=Ldap,ou=system");	
+        ProvisioningPlan plan = new ProvisioningPlan();
+        ProvisioningResult result = new ProvisioningResult();
+
+        plan.setIdentity(identityObj);
+
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication("LDAP");
+        accReq.setOperation(AccountRequest.Operation.Create);
+    
+        plan.add(accReq);
+
+        return plan; 
+
+
+
+
+
+
+      </Source>
+    </Script>
+    <Transition to="Provision Confirmation"/>
+  </Step>
+  <Step icon="Provision" name="Provision Confirmation" posX="602" posY="16">
+    <Arg name="identityEmailTemplate"/>
+    <Arg name="enableRetryRequest"/>
+    <Arg name="securityOfficerElectronicSignature"/>
+    <Arg name="fallbackApprover"/>
+    <Arg name="endOnManualWorkItems"/>
+    <Arg name="userEmailTemplate"/>
+    <Arg name="policiesToCheck"/>
+    <Arg name="project"/>
+    <Arg name="workItemComments"/>
+    <Arg name="identityRequestId"/>
+    <Arg name="approvalSplitPoint"/>
+    <Arg name="source"/>
+    <Arg name="identityDisplayName"/>
+    <Arg name="foregroundProvisioning"/>
+    <Arg name="ownerElectronicSignature"/>
+    <Arg name="batchRequestItemId"/>
+    <Arg name="splitPlans"/>
+    <Arg name="doRefresh"/>
+    <Arg name="plan"/>
+    <Arg name="flow"/>
+    <Arg name="identityElectronicSignature"/>
+    <Arg name="identityName">
+      <Script>
+        <Source>import sailpoint.object.Identity;
+
+
+Identity identity = context.getObject(Identity.class,identityName);
+
+return identity.getName();</Source>
+      </Script>
+    </Arg>
+    <Arg name="approvalSet"/>
+    <Arg name="violationReviewDecision"/>
+    <Arg name="filterRejects"/>
+    <Arg name="splitProjects"/>
+    <Arg name="requesterEmailTemplate"/>
+    <Arg name="approvalEmailTemplate"/>
+    <Arg name="ticketManagementApplication"/>
+    <Arg name="securityOfficerName"/>
+    <Arg name="approvingIdentities"/>
+    <Arg name="managerEmailTemplate"/>
+    <Arg name="ticketId"/>
+    <Arg name="approvalScheme" value="manager"/>
+    <Arg name="allowRequestsWithViolations"/>
+    <Arg name="workItemPriority"/>
+    <Arg name="managerElectronicSignature"/>
+    <Arg name="requireViolationReviewComments"/>
+    <Arg name="splitApprovalSet"/>
+    <Arg name="approvalMode"/>
+    <Arg name="trace" value="ref:trace"/>
+    <Arg name="endOnProvisioningForms"/>
+    <Arg name="splitWorkItemComments"/>
+    <Arg name="notificationScheme"/>
+    <Arg name="policyViolations"/>
+    <Arg name="policyScheme"/>
+    <Arg name="setPreviousApprovalDecisions"/>
+    <Arg name="optimisticProvisioning"/>
+    <Arg name="securityOfficerEmailTemplate"/>
+    <WorkflowRef>
+      <Reference class="sailpoint.object.Workflow" name="Test LCM Provisioning"/>
+    </WorkflowRef>
+    <Transition to="Email Notification"/>
+  </Step>
+  <Step icon="Provision" name="Modify Identity Provision" posX="470" posY="126" resultVariable="plan">
+    <Script>
+      <Source>        import sailpoint.api.SailPointContext;
+        import sailpoint.object.ProvisioningPlan;
+        import sailpoint.object.ProvisioningPlan.AccountRequest;
+        import sailpoint.object.ProvisioningPlan.AttributeRequest;
+        import sailpoint.object.ProvisioningResult;
+        import sailpoint.object.Identity;
+        import sailpoint.tools.GeneralException;
+
+        Identity identityObj = context.getObject(Identity.class, identityName);
+        String identityName = identityObj.getName();
+        String dn =( "uid="+identityName+",ou=users,ou=Ldap,ou=system");	
+        ProvisioningPlan plan = new ProvisioningPlan();
+        ProvisioningResult result = new ProvisioningResult();
+
+        plan.setIdentity(identityObj);
+
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication("LDAP");
+        accReq.setOperation(AccountRequest.Operation.Modify);
+       accReq.add(new AttributeRequest("givenName",ProvisioningPlan.Operation.Set,identityName+"001"));
+        plan.add(accReq);
+
+        return plan; 
+
+
+
+
+
+
+      </Source>
+    </Script>
+    <Transition to="Provision Confirmation"/>
+  </Step>
+  <Step icon="Provision" name="Delete Identity Provision" posX="470" posY="242" resultVariable="plan">
+    <Script>
+      <Source>import sailpoint.api.SailPointContext;
+        import sailpoint.object.ProvisioningPlan;
+        import sailpoint.object.ProvisioningPlan.AccountRequest;
+        import sailpoint.object.ProvisioningPlan.AttributeRequest;
+        import sailpoint.object.ProvisioningResult;
+        import sailpoint.object.Identity;
+        import sailpoint.tools.GeneralException;
+
+        Identity identityObj = context.getObject(Identity.class, identityName);
+        String identityName = identityObj.getName();
+        String dn =( "uid="+identityName+",ou=users,ou=Ldap,ou=system");	
+        ProvisioningPlan plan = new ProvisioningPlan();
+        ProvisioningResult result = new ProvisioningResult();
+
+        plan.setIdentity(identityObj);
+
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication("LDAP");
+        accReq.setOperation(AccountRequest.Operation.Delete);
+    
+        plan.add(accReq);
+
+        return plan; 
+
+
+
+
+
+
+      </Source>
+    </Script>
+    <Transition to="Provision Confirmation"/>
+  </Step>
+  <Step icon="Email" name="Email Notification" posX="765" posY="13">
+    <Script>
+      <Source>import java.util.ArrayList;
+import java.util.List;
+import sailpoint.api.SailPointContext;
+import sailpoint.object.EmailOptions;
+import sailpoint.object.EmailTemplate;
+import sailpoint.object.Identity;
+import sailpoint.object.Link;
+import sailpoint.tools.GeneralException;
+
+		ArrayList array = new ArrayList();
+		Identity identity = context.getObject(Identity.class, identityName);
+		String fullName = identity.getFullName();
+		  String displayName = identity.getDisplayName();
+		 String email = identity.getEmail();
+		    List&lt;Link&gt; links = identity.getLinks();
+		   for(Link li : links) {
+			   String applicationName = li.getApplicationName();
+			   array.add(applicationName);
+		   }
+		    
+			EmailTemplate requestNotification = context.getObject(EmailTemplate.class, "Request Notification"); 
+				EmailOptions emailInput = new EmailOptions();
+				emailInput.setTo(email);
+				emailInput.setVariable("identityName", fullName);
+		    emailInput.setVariable("identityDisplayName", displayName);
+		    emailInput.setVariable("applicationName", array);
+				
+				if(null!=requestNotification) {
+					context.sendEmailNotification(requestNotification, emailInput);
+					}
+		  
+
+	
+
+
+</Source>
+    </Script>
+    <Transition to="Audit Process"/>
+  </Step>
+  <Step icon="Audit" name="Audit Process" posX="898" posY="15">
+    <Script>
+      <Source>import java.util.ArrayList;
+import java.util.List;
+import sailpoint.api.SailPointContext;
+import sailpoint.object.Application;
+import sailpoint.object.AuditEvent;
+import sailpoint.object.Identity;
+import sailpoint.object.Link;
+import sailpoint.tools.GeneralException;
+
+		String applicationName;
+		
+		ArrayList array = new ArrayList();
+		 Identity identity = context.getObject(Identity.class, identityName);
+		 String displayName = identity.getDisplayName();
+		 String address = identity.getStringAttribute("location");
+		 List links = identity.getLinks();
+		 for(Link li:links) {
+			
+			 applicationName = li.getApplicationName();
+			 array.add(applicationName);
+		 }
+		AuditEvent audit = new AuditEvent();
+		audit.setAction("Custom");
+		audit.setSource(displayName);
+		System.out.println("Identity Name: "+ displayName);
+		audit.setApplication("applicationName");
+		audit.setAccountName(displayName);
+		System.out.println("Display Name: "+ displayName);
+		audit.setTarget(applicationName);
+		audit.setAttribute("location", address);
+		audit.setAttribute("Application", array);
+	        context.saveObject(audit);
+		context.commitTransaction();
+		
+ 
+	
+
+
+</Source>
+    </Script>
+    <Transition to="Stop"/>
+  </Step>
+</Workflow>

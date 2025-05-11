@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="" id="" language="beanshell" modified="" name="Add Member Rule1">
+  <Source>
+
+  import java.util.ArrayList;
+  import java.util.List;
+
+  import sailpoint.api.Provisioner;
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Attributes;
+  import sailpoint.object.Filter;
+  import sailpoint.object.Identity;
+  import sailpoint.object.Link;
+  import sailpoint.object.ProvisioningPlan;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+  import sailpoint.object.QueryOptions;
+  import sailpoint.tools.GeneralException;
+
+
+
+
+    public String addmembers(String username, String appName, List gblgroupDNs) throws GeneralException {
+
+      if(username!=null &amp;&amp; appName!=null &amp;&amp; gblgroupDNs!=null) {
+        QueryOptions qo = new QueryOptions();
+        Filter filter = Filter.eq("identity.name", username);
+        Filter filter1 = Filter.eq("application.name", appName);
+        qo.addFilter(filter);
+        qo.addFilter(filter1);
+
+        List linkList = context.getObjects(Link.class, qo);
+
+
+        for(Link link:linkList) {
+          String sname="";
+          String nativeIdentity = link.getNativeIdentity();
+          Object appLinkObj = link.getAttribute("sAMAccountName");
+          if(appLinkObj instanceof List) {
+            sname= (String) ((List) appLinkObj).get(0);
+          }else {
+            sname=(String) link.getAttribute("sAMAccountName");
+          }
+          List groupDNs = new ArrayList();
+          if(gblgroupDNs!=null) {
+            groupDNs = gblgroupDNs;
+
+          }
+         
+          List array = new ArrayList();
+          ProvisioningPlan plan = new ProvisioningPlan();
+          Identity identity = context.getObjectByName(Identity.class, username);
+          plan.setIdentity(identity);
+
+          AccountRequest accreq = new AccountRequest();
+
+          accreq.setNativeIdentity(nativeIdentity);
+          accreq.setApplication(appName);
+          accreq.setOperation(AccountRequest.Operation.Modify);
+          AttributeRequest attr = new AttributeRequest();
+          attr.setOp(ProvisioningPlan.Operation.Set);
+          attr.setName("memberOf");
+          attr.setValue(groupDNs);
+          accreq.add(attr);
+          array.add(accreq);
+                 plan.setAccountRequests(array);
+              
+         
+         // plan.setAccountRequests(array);
+          Provisioner provisioner = new Provisioner(context);
+          provisioner.execute(plan);
+
+       
+              return plan.toXml();
+         }   
+         }
+     
+      return "Member Added";
+    }
+      //return "";
+      List groupDNs = new ArrayList();
+     groupDNs.add("CN=infotech,OU=tekgroups,DC=teklane,DC=com");
+     groupDNs.add("CN=sailpoint,OU=tekgroups,DC=teklane,DC=com");
+
+
+  return addmembers("Alice.Ford", "Active Directory", groupDNs);
+
+
+
+
+
+  </Source>
+</Rule>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="" id="" language="beanshell" modified="" name="Work_Item_Form_Deletion">
+  <Source>
+ 
+  import java.text.ParseException;
+  import java.text.SimpleDateFormat;
+  import java.util.Calendar;
+  import java.util.Date;
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Filter;
+  import sailpoint.object.QueryOptions;
+  import sailpoint.object.TaskResult;
+  import sailpoint.object.WorkItem;
+
+ 
+
+   
+   public static Date getStartDate(int days) {
+		
+		
+		SimpleDateFormat sm = new SimpleDateFormat("MM/dd/yyyy");
+		Calendar calendar = Calendar.getInstance();
+		     calendar.add(Calendar.DATE, days);
+		     calendar.add(Calendar.HOUR_OF_DAY, 0);
+		     
+		     Date date = sm.parse(sm.format(calendar.getTime()));
+		     return date;
+ }
+  
+		     QueryOptions qo = new QueryOptions();
+		     Filter filter = Filter.eq("type", "Form");
+		    Filter filter1 = filter.lt("created", getStartDate(1));
+		    Filter formSearch = Filter.and(filter, filter1);
+		    Filter descriptionSearch = Filter.like("description", "Complete provisioning form for Rose.Garden",Filter.MatchMode.START);
+		    qo.addFilter(Filter.and(formSearch, descriptionSearch));
+		    int countObjects = context.countObjects(WorkItem.class, qo);
+		    sailpoint.api.Terminator terminator = new sailpoint.api.Terminator(context);
+		    terminator.deleteObjects(WorkItem.class, qo);
+		    TaskResult taskResult = new TaskResult();
+		    taskResult.addMessage(countObjects+"WorkItem Forms has been Deleted");
+
+
+
+  </Source>
+</Rule>

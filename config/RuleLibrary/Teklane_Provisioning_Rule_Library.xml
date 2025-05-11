@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane_Provisioning_Rule_Library">
+  <Source>
+
+  import java.util.ArrayList;
+  import java.util.List;
+
+  import sailpoint.api.Provisioner;
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Filter;
+  import sailpoint.object.Identity;
+  import sailpoint.object.Link;
+  import sailpoint.object.ProvisioningPlan;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+  import sailpoint.object.QueryOptions;
+  import sailpoint.tools.GeneralException;
+
+  public String createUser(String username, String appName) throws GeneralException {
+    if(username!=null &amp;&amp; appName!=null) {
+
+      QueryOptions qo = new QueryOptions();
+      Filter filter = Filter.eq("identity.name", username);
+      Filter filter1 = Filter.eq("application.name", appName);
+      qo.addFilter(filter);
+      qo.addFilter(filter1);
+      List link = context.getObjects(Link.class, qo);
+      for(Link links:link) {
+
+        String nativeIdentity = links.getNativeIdentity();
+        Identity identity = context.getObjectByName(Identity.class, username);
+        String dn="CN="+username+",OU=user,DC=teklane,DC=com";
+        ProvisioningPlan plan = new ProvisioningPlan();
+        plan.setIdentity(identity);
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication(appName);
+        accReq.setOperation(AccountRequest.Operation.Create);
+        accReq.add(new AttributeRequest("distinguishedName", ProvisioningPlan.Operation.Set, dn));
+        accReq.add(new AttributeRequest("givenName", ProvisioningPlan.Operation.Set,identity.getFirstname()));
+        accReq.add(new AttributeRequest("password", ProvisioningPlan.Operation.Set,"Sailpoint@2022"));
+        accReq.add(new AttributeRequest("sn", ProvisioningPlan.Operation.Set,identity.getLastname()));
+        accReq.add(new AttributeRequest("sAMAccountName", ProvisioningPlan.Operation.Set,username));
+
+
+        List array = new ArrayList();
+        array.add(accReq);
+        plan.setAccountRequests(array);
+        Provisioner provisioner = new Provisioner(context);
+        provisioner.execute(plan);
+        return plan.toXml();
+
+      }
+
+
+    }
+
+    return "User Created";
+
+  }
+//  return createUser("","");
+
+
+  public String modifyUser(String username, String appName) throws GeneralException {
+    if(username!=null &amp;&amp; appName!=null) {
+
+      QueryOptions qo = new QueryOptions();
+      Filter filter = Filter.eq("identity.name", username);
+      Filter filter1 = Filter.eq("application.name", appName);
+      qo.addFilter(filter);
+      qo.addFilter(filter1);
+      List link = context.getObjects(Link.class, qo);
+      for(Link links:link) {
+
+        String nativeIdentity = links.getNativeIdentity();
+        Identity identity = context.getObjectByName(Identity.class, username);
+        String dn="CN="+username+",OU=user,DC=teklane,DC=com";
+        ProvisioningPlan plan = new ProvisioningPlan();
+        plan.setIdentity(identity);
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication(appName);
+        accReq.setOperation(AccountRequest.Operation.Modify);
+        accReq.add(new AttributeRequest("distinguishedName", ProvisioningPlan.Operation.Add, dn));
+        //	accReq.add(new AttributeRequest("givenName", ProvisioningPlan.Operation.Add,identity.getFirstname()));
+        accReq.add(new AttributeRequest("password", ProvisioningPlan.Operation.Add,"Sailpoint@2023"));
+        //	accReq.add(new AttributeRequest("sn", ProvisioningPlan.Operation.Set,identity.getLastname()));
+        accReq.add(new AttributeRequest("sAMAccountName", ProvisioningPlan.Operation.Add,username+""+"tek"));
+
+
+        List array = new ArrayList();
+        array.add(accReq);
+        plan.setAccountRequests(array);
+        Provisioner provisioner = new Provisioner(context);
+        provisioner.execute(plan);
+        return plan.toXml();
+
+      }
+
+
+    }
+
+    return "User Created";
+  }
+//  return modifyUser("","");
+
+
+
+  public String disableUser(String username, String appName) throws GeneralException {
+    if(username!=null &amp;&amp; appName!=null) {
+
+      QueryOptions qo = new QueryOptions();
+      Filter filter = Filter.eq("identity.name", username);
+      Filter filter1 = Filter.eq("application.name", appName);
+      qo.addFilter(filter);
+      qo.addFilter(filter1);
+      List link = context.getObjects(Link.class, qo);
+      for(Link links:link) {
+      if(links.getAttributes().get("IIQDisabled").equals("false")){
+        String nativeIdentity = links.getNativeIdentity();
+        Identity identity = context.getObjectByName(Identity.class, username);
+        String dn="CN="+username+",OU=user,DC=teklane,DC=com";
+        ProvisioningPlan plan = new ProvisioningPlan();
+        plan.setIdentity(identity);
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication(appName);
+        accReq.setOperation(AccountRequest.Operation.Disable);
+
+        List array = new ArrayList();
+        array.add(accReq);
+        plan.setAccountRequests(array);
+        Provisioner provisioner = new Provisioner(context);
+        provisioner.execute(plan);
+        return plan.toXml();
+
+      }
+      }
+
+    }
+
+    return "User Created";
+  }
+//  return disableUser("","");
+
+  public String enableUser(String username, String appName) throws GeneralException {
+    if(username!=null &amp;&amp; appName!=null) {
+
+      QueryOptions qo = new QueryOptions();
+      Filter filter = Filter.eq("identity.name", username);
+      Filter filter1 = Filter.eq("application.name", appName);
+      qo.addFilter(filter);
+      qo.addFilter(filter1);
+      List link = context.getObjects(Link.class, qo);
+      for(Link links:link) {
+       if(links.getAttributes().get("IIQDisabled").equals("true")){
+        String nativeIdentity = links.getNativeIdentity();
+        Identity identity = context.getObjectByName(Identity.class, username);
+        String dn="CN="+username+",OU=user,DC=teklane,DC=com";
+        ProvisioningPlan plan = new ProvisioningPlan();
+        plan.setIdentity(identity);
+        AccountRequest accReq = new AccountRequest();
+        accReq.setNativeIdentity(dn);
+        accReq.setApplication(appName);
+        accReq.setOperation(AccountRequest.Operation.Enable);
+
+
+        List array = new ArrayList();
+        array.add(accReq);
+        plan.setAccountRequests(array);
+        Provisioner provisioner = new Provisioner(context);
+        provisioner.execute(plan);
+        return plan.toXml();
+
+      }
+      }
+
+    }
+
+    return "User Created";
+  }
+//  return enableUser("","");
+
+
+
+
+
+
+  </Source>
+</Rule>
