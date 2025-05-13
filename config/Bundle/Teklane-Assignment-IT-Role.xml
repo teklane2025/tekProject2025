@@ -16,14 +16,11 @@
       </entry>
     </Map>
   </Attributes>
-  <Inheritance>
-    <Reference class="sailpoint.object.Bundle" id="" name="Teklane-Assignment-Business-Role"/>
-  </Inheritance>
   <Owner>
     <Reference class="sailpoint.object.Identity" id="" name="spadmin"/>
   </Owner>
   <Profiles>
-    <Profile created="" id="" modified="">
+    <Profile created="" id="">
       <ApplicationRef>
         <Reference class="sailpoint.object.Application" id="" name="Teklane Webservice Auth"/>
       </ApplicationRef>

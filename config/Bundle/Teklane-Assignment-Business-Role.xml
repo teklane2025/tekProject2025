@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Bundle PUBLIC "sailpoint.dtd" "sailpoint.dtd">
 <Bundle created="" displayName="Teklane-Assignment-Business-Role" id="" modified="" name="Teklane-Assignment-Business-Role" type="business">
-  <Attributes>
+<Attributes>
     <Map>
       <entry key="accountSelectorRules"/>
       <entry key="allowDuplicateAccounts" value="false"/>
@@ -22,4 +22,7 @@
   <Owner>
     <Reference class="sailpoint.object.Identity" id="" name="spadmin"/>
   </Owner>
+  <Requirements>
+    <Reference class="sailpoint.object.Bundle" id="" name="Teklane-Assignment-IT-Role"/>
+  </Requirements>
 </Bundle>
