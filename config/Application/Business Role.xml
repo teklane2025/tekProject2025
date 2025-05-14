@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Bundle PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Bundle  displayName="BR- Demo role" id="c0a80102968716f08196cafcd7662914" name="BR-Demo Role" type="business">
+  <Attributes>
+    <Map>
+      <entry key="accountSelectorRules"/>
+      <entry key="allowDuplicateAccounts" value="false"/>
+      <entry key="allowMultipleAssignments" value="false"/>
+      <entry key="mergeTemplates" value="false"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US" value="BR role will contain Business role"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Inheritance>
+    <Reference class="sailpoint.object.Bundle" id="c0a80102968716f08196cafb2e8a2911" name="OR- Demo Role"/>
+  </Inheritance>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a8010295a61d618195a66e975700e3" name="spadmin"/>
+  </Owner>
+  <Permits>
+    <Reference class="sailpoint.object.Bundle" id="c0a80102968716f08196cafe6dae291d" name="IT- Demo Role"/>
+  </Permits>
+  <Requirements>
+    <Reference class="sailpoint.object.Bundle" id="c0a80102968716f08196cafe6dae291d" name="IT- Demo Role"/>
+  </Requirements>
+</Bundle>

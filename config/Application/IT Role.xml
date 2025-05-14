@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Bundle PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Bundle  displayName="IT- Demo Role" id="c0a80102968716f08196cafe6dae291d"  name="IT- Demo Role" type="it">
+  <Attributes>
+    <Map>
+      <entry key="accountSelectorRules"/>
+      <entry key="allowDuplicateAccounts" value="false"/>
+      <entry key="allowMultipleAssignments" value="false"/>
+      <entry key="mergeTemplates" value="false"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US" value="this will show IT Role"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Inheritance>
+    <Reference class="sailpoint.object.Bundle" id="c0a80102968716f08196cafb2e8a2911" name="OR- Demo Role"/>
+  </Inheritance>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a8010295a61d618195a66e975700e3" name="spadmin"/>
+  </Owner>
+  <Profiles>
+    <Profile created="1747162394030" id="c0a80102968716f08196cafe6dae291e" modified="1747167140965">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="c0a80102966a1c6e81966aef28e100bb" name="ldap application"/>
+      </ApplicationRef>
+      <Constraints>
+        <Filter operation="CONTAINS_ALL" property="groups">
+          <Value>
+            <List>
+              <String>cn=Hiringmanager,ou=tekgroups,ou=system</String>
+            </List>
+          </Value>
+        </Filter>
+      </Constraints>
+    </Profile>
+  </Profiles>
+</Bundle>
