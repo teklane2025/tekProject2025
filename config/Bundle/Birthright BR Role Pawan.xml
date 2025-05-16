@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Bundle PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Bundle created="1746311744043" id="7f00000196451b6a8196984a8a2738d0" modified="1746311988852" name="Birthright BR Role" type="business">
+  <Attributes>
+    <Map>
+      <entry key="accountSelectorRules"/>
+      <entry key="allowDuplicateAccounts" value="false"/>
+      <entry key="allowMultipleAssignments" value="false"/>
+      <entry key="mergeTemplates" value="false"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Inheritance>
+    <Reference class="sailpoint.object.Bundle" id="7f00000196451b6a81969849468a38cd" name="Birthright TX Role"/>
+  </Inheritance>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="7f0000019645120481964562628200e3" name="spadmin"/>
+  </Owner>
+  <Requirements>
+    <Reference class="sailpoint.object.Bundle" id="7f00000196451b6a8196984b24b338d2" name="Birthright IT Role"/>
+  </Requirements>
+  <Selector>
+    <IdentitySelector>
+      <MatchExpression>
+        <MatchTerm name="department" type="Entitlement" value="Admin">
+          <ApplicationRef>
+            <Reference class="sailpoint.object.Application" id="7f00000196451b6a81968e5f8af72f90" name="Teklane Authoritative Application"/>
+          </ApplicationRef>
+        </MatchTerm>
+      </MatchExpression>
+    </IdentitySelector>
+  </Selector>
+</Bundle>

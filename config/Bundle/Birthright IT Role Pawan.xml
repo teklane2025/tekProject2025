@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Bundle PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Bundle created="1746311783605" id="7f00000196451b6a8196984b24b338d2" modified="1746311988852" name="Birthright IT Role" type="it">
+  <Attributes>
+    <Map>
+      <entry key="accountSelectorRules"/>
+      <entry key="allowDuplicateAccounts" value="false"/>
+      <entry key="allowMultipleAssignments" value="false"/>
+      <entry key="mergeTemplates" value="false"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Inheritance>
+    <Reference class="sailpoint.object.Bundle" id="7f00000196451b6a81969849468a38cd" name="Birthright TX Role"/>
+  </Inheritance>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="7f0000019645120481964562628200e3" name="spadmin"/>
+  </Owner>
+  <Profiles>
+    <Profile created="1746311783610" id="7f00000196451b6a8196984b24ba38d3">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application" id="7f00000196451b6a819692d615563470" name="Teklane LDAP Application"/>
+      </ApplicationRef>
+      <Constraints>
+        <Filter operation="CONTAINS_ALL" property="groups">
+          <Value>
+            <List>
+              <String>cn=sailpoint,ou=groups,ou=users,ou=system</String>
+              <String>cn=idn,ou=groups,ou=users,ou=system</String>
+            </List>
+          </Value>
+        </Filter>
+      </Constraints>
+    </Profile>
+  </Profiles>
+</Bundle>
