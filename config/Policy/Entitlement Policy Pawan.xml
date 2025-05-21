@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Policy PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Policy certificationActions="Remediated,Mitigated,Delegated" configPage="entitlementPolicy.xhtml" executor="sailpoint.policy.EntitlementSODPolicyExecutor" name="Demo Entitlement SOD Policy" state="Active" type="EntitlementSOD" typeKey="policy_type_entitlement_sod" violationOwnerType="Manager">
+  <PolicyAlert disabled="true" escalationStyle="none"/>
+  <Attributes>
+    <Map>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" name="spadmin"/>
+  </Owner>
+  <GenericConstraints>
+    <GenericConstraint name="Entitlement SOD Policy" violationOwnerType="None">
+      <CompensatingControl>Identity having okta isnot permitted to have aws</CompensatingControl>
+      <RemediationAdvice>Please remove one of the either roles</RemediationAdvice>
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="groups" type="Entitlement" value="cn=okta,ou=groups,ou=users,ou=system">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application" name="Teklane LDAP Application"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="groups" type="Entitlement" value="cn=aws,ou=groups,ou=users,ou=system">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application" name="Teklane LDAP Application"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+    </GenericConstraint>
+  </GenericConstraints>
+</Policy>
