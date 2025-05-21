@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Policy PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Policy certificationActions="Remediated,Mitigated,Delegated" configPage="sodpolicy.xhtml"  executor="sailpoint.policy.SODPolicyExecutor"  name="Teklane Role SOD Policy" state="Active" type="SOD" typeKey="policy_type_sod" violationOwnerType="Manager">
+  <PolicyAlert disabled="true" escalationStyle="none"/>
+  <Attributes>
+    <Map>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="taskResultId" value="c0a801ed96ee16988196f30ed1620c1c"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity"  name="//This is the HR record file"/>
+  </Owner>
+  <SODConstraints>
+    <SODConstraint  name="Policy to check the role conflict" violationOwnerType="None">
+      <CompensatingControl>Policy Role A and policy Role B are not permitted to request at same time</CompensatingControl>
+      <Description>This is to check policy violation</Description>
+      <LeftBundles>
+        <Reference class="sailpoint.object.Bundle"  name="Business Role A"/>
+      </LeftBundles>
+      <RemediationAdvice>Please remove policy Role A or Policy Role B</RemediationAdvice>
+      <RightBundles>
+        <Reference class="sailpoint.object.Bundle"  name="Business Role B"/>
+      </RightBundles>
+    </SODConstraint>
+  </SODConstraints>
+</Policy>
