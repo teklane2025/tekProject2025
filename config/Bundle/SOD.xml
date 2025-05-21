@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE PolicyViolation PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<PolicyViolation active="true" constraintId="c0a8010296e61a268196eeb9e7cf05ea" constraintName="new rule" id="c0a8010296e61a268196eecf57f30645" policyId="c0a8010296e61a268196eeb8fc7b05e2" policyName="role sod policy1" renderer="policySODDetails.xhtml" status="Open">
+  <IdentityRef>
+    <Reference class="sailpoint.object.Identity" id="c0a80102968716f08196a1e0373a0e33" name="lunar"/>
+  </IdentityRef>
+  <LeftBundleNames>Policy 1 Business role</LeftBundleNames>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a8010295a61d618195a66e975700e3" name="spadmin"/>
+  </Owner>
+  <RightBundleNames>Policy 2 Business role</RightBundleNames>
+</PolicyViolation>

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Policy PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Policy certificationActions="Remediated,Mitigated,Delegated" configPage="entitlementPolicy.xhtml"  executor="sailpoint.policy.EntitlementSODPolicyExecutor" id="c0a8010296e61a268196eeeaf4c7066d"  name="Entitlement SOD policy" state="Active" type="EntitlementSOD" typeKey="policy_type_entitlement_sod" violationOwnerType="Manager">
+  <PolicyAlert disabled="true" escalationStyle="none"/>
+  <Attributes>
+    <Map>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a8010295a61d618195a66e975700e3" name="spadmin"/>
+  </Owner>
+  <GenericConstraints>
+    <GenericConstraint  id="c0a8010296e61a268196eeeaf4c8066e"  name="new rule" violationOwnerType="None">
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="groups" type="Entitlement" value="cn=Hiringmanager,ou=tekgroups,ou=system">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application" id="c0a80102966a1c6e81966aef28e100bb" name="ldap application"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="department" type="Entitlement" value="HR">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application" id="c0a8010295a612dc819635682fab4281" name="teklane hrms application"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+    </GenericConstraint>
+  </GenericConstraints>
+</Policy>
