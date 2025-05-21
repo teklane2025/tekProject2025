@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Policy PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Policy certificationActions="Remediated,Mitigated,Delegated" configPage="sodpolicy.xhtml" created="1747807653957" executor="sailpoint.policy.SODPolicyExecutor" id="c0a8007896e7106f8196f174504502b3" modified="1747809651504" name="TekLane SOD Policy – Role Conflict" state="Active" type="SOD" typeKey="policy_type_sod" violationOwnerType="Manager">
+  <PolicyAlert disabled="true" escalationStyle="none"/>
+  <Attributes>
+    <Map>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity"  name="spadmin"/>
+  </Owner>
+  <SODConstraints>
+    <SODConstraint created="1747807653957"  name="new rule" violationOwnerType="None">
+      <LeftBundles>
+        <Reference class="sailpoint.object.Bundle"  name="Role 1"/>
+      </LeftBundles>
+      <RightBundles>
+        <Reference class="sailpoint.object.Bundle"  name="Role 2"/>
+      </RightBundles>
+    </SODConstraint>
+  </SODConstraints>
+</Policy>
