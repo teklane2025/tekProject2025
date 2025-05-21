@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Policy PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Policy certificationActions="Remediated,Mitigated,Delegated" configPage="entitlementPolicy.xhtml" created="1747811831652" executor="sailpoint.policy.EntitlementSODPolicyExecutor" id="c0a8007896e7106f8196f1b40f6403aa" modified="1747811916648" name="Entitlement SOD Policy Detective" state="Active" type="EntitlementSOD" typeKey="policy_type_entitlement_sod" violationOwnerType="Manager">
+  <PolicyAlert disabled="true" escalationStyle="none"/>
+  <Attributes>
+    <Map>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity"  name="spadmin"/>
+  </Owner>
+  <GenericConstraints>
+    <GenericConstraint created="1747811831653"  modified="1747811916648" name="new rule" violationOwnerType="None">
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="department" type="Entitlement" value="Customer Care">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application"  name="Test1"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="department" type="Entitlement" value="Developer">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application"  name="Test1"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+    </GenericConstraint>
+  </GenericConstraints>
+</Policy>
