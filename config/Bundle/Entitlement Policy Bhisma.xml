@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Policy PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Policy certificationActions="Remediated,Mitigated,Delegated" configPage="entitlementPolicy.xhtml"  executor="sailpoint.policy.EntitlementSODPolicyExecutor"  name="Teklane Entitlement Policy" state="Active" type="EntitlementSOD" typeKey="policy_type_entitlement_sod" violationOwnerType="Manager">
+  <PolicyAlert disabled="true" escalationStyle="none"/>
+  <Attributes>
+    <Map>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a801ed96211c8c8196214d76f100e3" name="spadmin"/>
+  </Owner>
+  <GenericConstraints>
+    <GenericConstraint  name="Policy Rule for Entitlement" violationOwnerType="None">
+      <Description>This is policy rule for Entitlement</Description>
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="department" type="Entitlement" value="IT">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application"  name="test file"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+      <IdentitySelector>
+        <MatchExpression>
+          <MatchTerm name="department" type="Entitlement" value="HR">
+            <ApplicationRef>
+              <Reference class="sailpoint.object.Application"  name="test file"/>
+            </ApplicationRef>
+          </MatchTerm>
+        </MatchExpression>
+      </IdentitySelector>
+    </GenericConstraint>
+  </GenericConstraints>
+</Policy>
