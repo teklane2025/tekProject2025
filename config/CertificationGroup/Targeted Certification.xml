@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE CertificationGroup PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<CertificationGroup completedCertifications="2" name="Teklane Department PopulationTargeted Certification [5/22/25, 7:25:54 PM CDT]" percentComplete="33" status="Active" totalCertifications="6" type="Certification">
+  <Definition>
+    <Reference class="sailpoint.object.CertificationDefinition" name="Targeted Certification [5/22/25, 7:24 PM]"/>
+  </Definition>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" name="spadmin"/>
+  </Owner>
+</CertificationGroup>
