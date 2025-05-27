@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane Get Assigned and Detected Role Details">
+  <Description>This rule gets the assigned role for specific identity.</Description>
+  <Source>
+  
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.*;
+  import org.apache.log4j.Logger;
+  
+  List li = new ArrayList();
+  
+  String identityName = "Shaili.Bhandari";
+  
+  Identity iden = context.getObjectByName(Identity.class,identityName);
+  String fname = iden.getFirstname();
+  String lname = iden.getLastname();
+  
+  List assignrole = iden.getAssignedRoles();
+  List detectrole = iden.getDetectedRoles();
+  List roles = new ArrayList();
+  roles.addAll(assignrole);
+  roles.addAll(detectrole);
+  
+  
+  for(Bundle role: roles){
+    
+    String rolename = role.getName();
+    li.add(rolename);
+      
+  }
+  
+  
+  return li; 
+  
+  </Source>
+</Rule>
