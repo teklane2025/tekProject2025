@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule  language="beanshell" modified="1748369237113" name="Assignment1" type="RequestObjectSelector">
+  <Source>
+    import sailpoint.object.Identity;
+    import java.util.List;
+    import java.util.ArrayList;
+
+    List arrList = new ArrayList();
+
+    Identity iden = context.getObjectById(Identity.class, "c0a801f196821be381968dc1252d0fa6");
+
+  String fname = iden.getFirstname();
+   String lname = iden.getLastname();
+
+
+    String email =  iden.getStringAttribute("email");
+    String department = iden.getStringAttribute("department");
+    String status =  iden.getStringAttribute("status");
+
+    arrList.add("First Name: " + fname);
+    arrList.add("Last Name: " + lname);
+    arrList.add("Email: " + email);
+    arrList.add("Department: " + department);
+    arrList.add("Status: " + status);
+
+    return arrList;
+  </Source>
+</Rule>

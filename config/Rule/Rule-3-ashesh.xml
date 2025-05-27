@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell"  name="Assignment3" type="RequestObjectSelector">
+  <Source>
+    import sailpoint.object.Identity;
+    import sailpoint.object.Application;
+    import java.util.List;
+    import java.util.ArrayList;
+
+    List arrList = new ArrayList();
+
+    List appList = context.getObjects(Application.class);
+
+
+  for(Application a : appList){
+    arrList.add(a.getName());
+  }
+  
+  return arrList;
+  </Source>
+</Rule>

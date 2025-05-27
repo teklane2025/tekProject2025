@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" modified="1748368088888" name="Assignment2" type="RequestObjectSelector">
+  <Source>
+    import sailpoint.object.Identity;
+    import java.util.List;
+    import java.util.ArrayList;
+
+    List arrList = new ArrayList();
+
+    List iden = context.getObjects(Identity.class);
+  
+  for(Identity a : iden){
+    arrList.add(a.getName());
+      
+  }  
+    return arrList;
+  </Source>
+</Rule>

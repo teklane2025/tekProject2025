@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule  language="beanshell"  name="Assignment5" type="RequestObjectSelector">
+  <Source>
+    import sailpoint.object.Application;
+    import sailpoint.object.Bundle;
+    import sailpoint.object.Identity;
+    import sailpoint.object.Link;
+    import sailpoint.object.RoleAssignment;
+    import sailpoint.tools.Util;
+    import java.util.ArrayList;
+    import java.util.HashSet;
+    import java.util.List;
+    import java.util.Set;
+  
+  	    Identity identity = context.getObjectById(Identity.class, "c0a801f196821be381968dc1252d0fa6");
+			 	return identity.getAssignedRoles();
+  
+  			
+  
+  
+  </Source>
+</Rule>
