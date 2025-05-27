@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane Get User Details">
+  <Source>
+  
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Identity;
+  import org.apache.log4j.Logger;
+  
+  
+  List li = new ArrayList();
+  
+  
+  List iden = context.getObjects(Identity.class);
+  for (Identity id: iden){
+    String fname = id.getFirstname();
+    String lname = id.getLastname();
+    String email = id.getEmail();
+    String dept = id.getStringAttribute("department");
+    String status = id.getStringAttribute("status");
+    String gender = id.getStringAttribute("gender");
+   
+  
+  
+    li.add("First Name:"+fname);
+    li.add("Last Name:"+lname);
+    if(email != null){
+      li.add("Email:"+email);}
+    li.add("Department:"+dept);
+    li.add("Status:"+status);
+    li.add("Gender:"+gender);
+
+  }
+  
+  
+  return li;
+  
+  </Source>
+</Rule>
