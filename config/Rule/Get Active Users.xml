@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane Active Users">
+  <Source>
+  
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Identity;
+  
+  List li = new ArrayList();
+  
+  
+  List iden = context.getObjects(Identity.class);
+  //return iden;
+  for(Identity id: iden){
+  String fname = id.getFirstname();
+  String lname = id.getLastname();
+  String status = id.getStringAttribute("status");
+   
+    if("1".equals(status)){
+  
+                                       
+  li.add("Name:"+lname+"."+fname);
+  li.add("Status:"+status); }                                       
+  }
+  return li;
+  </Source>
+</Rule>
