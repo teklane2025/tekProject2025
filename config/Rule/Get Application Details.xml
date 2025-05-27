@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane Get Application Details">
+  <Source>
+  
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Identity;
+  
+  List li = new ArrayList();
+  
+  
+  List lis = context.getObjects(Application.class);
+  //return lis;
+  
+  for(Application apps: lis){
+    String appName = apps.getName();
+    
+    li.add("Application:"+appName);
+		
+  }
+  return li;
+    
+    
+  
+  </Source>
+</Rule>
