@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane Get SPRight">
+  <Source>
+  
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Identity;
+  import sailpoint.object.SPRight;
+
+  List li=new ArrayList();
+  List iden=context.getObjects(SPRight.class);
+  for(SPRight id:iden){
+    li.add(id.getName());
+
+  }
+  return li;
+
+  
+  </Source>
+</Rule>
