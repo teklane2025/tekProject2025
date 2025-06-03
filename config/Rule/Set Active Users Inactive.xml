@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule language="beanshell" name="Teklane Set Active Users Inactive">
+  <Source>
+  
+  import sailpoint.api.SailPointContext;
+import sailpoint.object.Identity;
+import sailpoint.object.Filter;
+import sailpoint.object.QueryOptions;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+  
+  List li = new ArrayList();
+  
+  
+  List iden = context.getObjects(Identity.class);
+  //return iden;
+  for(Identity id: iden){
+  String fname = id.getName();
+  String status = id.getStringAttribute("status");
+   
+    if("1".equals(status)){
+       id.setAttribute("status", "0");
+      context.saveObject(id); 
+  
+                                       
+
+    }
+      li.add(fname);
+    li.add(status);
+  }
+  return li;
+
+  </Source>
+</Rule>
