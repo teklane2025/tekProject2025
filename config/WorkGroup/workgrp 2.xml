@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Identity PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Identity  name="OS Work Group 2" workgroup="true">
+  <Attributes>
+    <Map>
+      <entry key="displayName" value="OS Work Group 2"/>
+    </Map>
+  </Attributes>
+  <Capabilities>
+    <Reference class="sailpoint.object.Capability"  name="CertificationAdministrator"/>
+  </Capabilities>
+  <Preferences>
+    <Map>
+      <entry key="workgroupNotificationOption">
+        <value>
+          <WorkgroupNotifationOption>Both</WorkgroupNotifationOption>
+        </value>
+      </entry>
+    </Map>
+  </Preferences>
+</Identity>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE GroupDefinition PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<GroupDefinition created="" id="" indexed="true" name="hrpopulation" private="true">
+  <Description></Description>
+  <GroupFilter>
+    <CompositeFilter operation="AND">
+      <Filter matchMode="START" operation="LIKE" property="department" value="[HR]"/>
+    </CompositeFilter>
+  </GroupFilter>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="" name="spadmin"/>
+  </Owner>
+</GroupDefinition>

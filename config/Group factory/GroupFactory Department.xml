@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE GroupFactory PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<GroupFactory created="1747721996048" enabled="true" factoryAttribute="department"  name="Department Group">
+  <Description></Description>
+</GroupFactory>

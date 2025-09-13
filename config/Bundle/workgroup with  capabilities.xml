@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Identity PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Identity  id="c0a8010296e61a268196e9a06a6f04df"  name="admin workgroup with capabilities" workgroup="true">
+  <Attributes>
+    <Map>
+      <entry key="displayName" value="admin workgroup with capabilities"/>
+    </Map>
+  </Attributes>
+  <Capabilities>
+    <Reference class="sailpoint.object.Capability" id="c0a8010295a61d618195a66e8b6800b8" name="SystemAdministrator"/>
+  </Capabilities>
+  <Preferences>
+    <Map>
+      <entry key="workgroupNotificationOption">
+        <value>
+          <WorkgroupNotifationOption>Both</WorkgroupNotifationOption>
+        </value>
+      </entry>
+    </Map>
+  </Preferences>
+</Identity>
